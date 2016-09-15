@@ -1,0 +1,31 @@
+$bg-color: #f5f5f5;
+$font-family: 'Roboto Condensed', "Times New Roman", sans-serif;
+
+*{box-sizing: border-box;-webkit-box-sizing:border-box;-moz-box-sizing: border-box;}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height:100%;
+  background: $bg-color;
+  font-family: $font-family;
+}
+.login-form{max-width:400px;margin:50px auto;background:#FFFFFF;border-radius:2px;padding:20px;}
+.login-form__title{display: block;text-align: center;padding: 0;margin: 0px 0px 20px 0px;color: #5C5C5C;font-size:x-large;}
+.login-form__list{list-style:none;padding:0;margin:0;}
+.login-form__item:not(:last-child){display: block;padding: 9px;border:1px solid #DDDDDD;margin-bottom: 30px;border-radius: 3px;}
+.login-form__item_last{border:none;margin-bottom: 0px;text-align: center;background-color: transparent;position: relative;z-index: 100;}
+.login-form__item_last .login-form__field{width:100%;}
+.login-form__label{display: block;float: left;margin-top: -19px;background: #FFFFFF;height: 25px;padding: 2px 5px 2px 5px;color: #B9B9B9;font-size: 16px;overflow: hidden;}
+.login-form__field{width: 100%;display: block;outline: none;border: none;height: 25px;line-height: 25px;font-size: 14px;color: #606060;padding: 0;margin-bottom:3px;}
+.login-form__field:focus{border:1px dashed #CCCCCC;}
+.login-form__field:focus + .login-form__desc, .login-form__field:focus~ .login-form__label {color: #555;}
+/*.login-form__field:active{border:1px dashed red;}*/
+.login-form__desc{background: #F3F3F3;display: block;padding: 3px;margin: 0 -9px -9px -9px;text-align: center;color: #C0C0C0;font-size: 11px;}
+.login-form__submit{background: none repeat scroll 0 0 rgba(0, 0, 0, 0);border: 1px solid #DDDDDD;border-radius: 0;color: #DDDDDD;font-size: 14px;width:100%;height: auto;padding: 8px 15px; text-transform: uppercase;}
+.login-form__submit:after{ background: none repeat scroll 0 0 #FFFFFF;content: "";height: 100%;left: 0;position: absolute;top: 0;width: 0;z-index: -1;}
+.login-form__submit:hover:after,.login-form__submit:focus:after{background:#DDDDDD;color:#fff;width: 100%;-webkit-transition: all 0.4s;-moz-transition: all 0.4s;transition: all 0.4s}
+.login-form__submit:hover{border-color:#DDDDDD;cursor: pointer;color: #FFFFFF}
