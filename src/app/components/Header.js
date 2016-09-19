@@ -4,13 +4,20 @@ angular
     templateUrl: 'app/components/Header.html',
     controller: Header,
     bindings: {
-      todos: '='
+      // todos: '=',
     }
   });
 
 /** @ngInject */
-function Header(todoService) {
-  this.todoService = todoService;
+function Header(todoService, $window) {
+  // this.todoService = todoService;
+  this.userIsPresent = false;
+
+  this.user = $window.localStorage.getObject('hl_user');
+
+  if(angular.isDefined(this.user) && this.user !== null){
+    this.userIsPresent = true;
+  }
 }
 
 Header.prototype = {

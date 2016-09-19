@@ -8,8 +8,14 @@
     </div>
   </div>
 
-  <div class="header__user">
-    weferreververt
+  <div class="header__user" ng-show="$ctrl.userIsPresent">
+    <div class="header__user_item">
+      BIC: {{$ctrl.user.bic}}
+    </div>
+    <div class="header__user_item"> / </div>
+    <div class="header__user_item">
+      User: {{$ctrl.user.username}}
+    </div>
   </div>
   <!--<todo-text-input-->
     <!--new-todo="true"-->

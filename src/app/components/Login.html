@@ -1,23 +1,29 @@
-<form class="login-form">
-  <h1 class="login-form__title">Login form</h1>
-  <ul class="login-form__list">
-    <li class="login-form__item">
-      <label class="login-form__label" for="name">BIC</label>
-      <input class="login-form__field" type="text" name="bic" maxlength="100">
-      <span class="login-form__desc" >Enter your BIC here</span>
-    </li>
-    <li class="login-form__item">
-      <label class="login-form__label" for="email">Login</label>
-      <input class="login-form__field" type="text" name="username" maxlength="100">
-      <span class="login-form__desc" >Enter your login name here</span>
-    </li>
-    <li class="login-form__item">
-      <label class="login-form__label" for="url">Password</label>
-      <input class="login-form__field" type="password" name="password" maxlength="100">
-      <span class="login-form__desc" >Please provide a password</span>
-    </li>
-    <li class="login-form__item login-form__item_last">
-      <button class="login-form__submit">Continue</button>
-    </li>
-  </ul>
-</form>
+<div class="wrapper">
+  <form class="login-form" name="loginForm" ng-submit="$ctrl.submitForm(loginForm.$valid)" novalidate>
+    <h1 class="login-form__title">Login form</h1>
+    <ul class="login-form__list">
+      <li class="login-form__item">
+        <label class="login-form__label">BIC</label>
+        <input class="login-form__field" type="text" name="bic" ng-model="$ctrl.bic" ng-required="true">
+        <span class="login-form__desc">Enter your BIC here</span>
+      </li>
+      <li class="login-form__item">
+        <label class="login-form__label">Login</label>
+        <input class="login-form__field" type="text" name="username" ng-model="$ctrl.user.username" ng-minlength="3" ng-maxlength="10" ng-required="true">
+        <span class="login-form__desc">Enter your login name here</span>
+      </li>
+      <li class="login-form__item">
+        <label class="login-form__label">Password</label>
+        <input class="login-form__field" type="password" name="password" ng-model="$ctrl.password" ng-required="true">
+        <span class="login-form__desc">Please provide a password</span>
+      </li>
+      <li class="login-form__item" ng-show="$ctrl.errorPresent" ng-class="{'login-form_item_error': $ctrl.errorPresent}">
+        <label class="login-form__label">Error</label>
+        <span class="login-form__desc" ng-model="$ctrl.errorMessage">BIC code or login or password you entered is incorrect.</span>
+      </li>
+      <li class="login-form__item login-form__item_last">
+        <button class="login-form__submit" type="submit" ng-disabled="loginForm.$invalid">Continue</button>
+      </li>
+    </ul>
+  </form>
+</div>
