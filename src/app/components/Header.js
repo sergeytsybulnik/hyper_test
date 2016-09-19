@@ -9,9 +9,10 @@ angular
   });
 
 /** @ngInject */
-function Header(todoService, $window) {
+function Header(todoService, $window, RestFactory) {
   // this.todoService = todoService;
   this.userIsPresent = false;
+  this.rests = RestFactory;
 
   this.user = $window.localStorage.getObject('hl_user');
 
@@ -21,6 +22,9 @@ function Header(todoService, $window) {
 }
 
 Header.prototype = {
+  Logout: function(){
+    this.rests.logout();
+  },
   handleSave: function (text) {
     if (text.length !== 0) {
       this.todos = this.todoService.addTodo(text, this.todos);

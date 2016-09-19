@@ -10,11 +10,14 @@
 
   <div class="header__user" ng-show="$ctrl.userIsPresent">
     <div class="header__user_item">
-      BIC: {{$ctrl.user.bic}}
+      <div class="header__user_value header__user_value_no">BIC:</div> <div class="header__user_value header__user_value_yes">{{$ctrl.user.bic}}</div>
     </div>
-    <div class="header__user_item"> / </div>
+    <div class="header__user_item header__user_item_separator"> / </div>
     <div class="header__user_item">
-      User: {{$ctrl.user.username}}
+      <div class="header__user_value header__user_value_no">User:</div> <div class="header__user_value header__user_value_yes">{{$ctrl.user.username}}</div>
+    </div>
+    <div class="header__user_item">
+      <button class="header__user_btn" ng-click="$ctrl.Logout()">Logout</button>
     </div>
   </div>
   <!--<todo-text-input-->

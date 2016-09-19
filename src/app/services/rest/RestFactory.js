@@ -1,6 +1,5 @@
 angular.module('app').factory('RestFactory',  function(Restangular, $q, $window){
 
-  var currentUser = undefined;
   var defaultParams = {"jsonrpc": "2.0", "method": "query"};
   var isDefined = function(value) {
     return angular.isDefined(value) && value !== null;
@@ -28,27 +27,21 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window)
       var params = setParams(configurableParams);
       return Restangular.all('chaincode').customPOST(params);
     },
-    initUser: function(){
-      // if (angular.isDefined(promise) && promise.$$state.status === 0) {
-      //   return promise;
-      // }
-      // if(angular.isDefined(currentUser)){
-      //   return;
-      // }
-    },
-    getCurrentUser: function(){
-      return currentUser;
-    },
     logout: function(){
       $window.localStorage.clear();
+      $window.location.href = window.location.origin;
     },
     getAccounts: function(){
-      var params = {
-        type: 1,
-        chaincodeID: {name: "AccountsManagement"},
-        ctorMsg: {function: "listAccounts", args: ["PreviouslyReceivedToken"]},
-        id: 5
+      var configurableParams = {
+        params: {
+          type: 1,
+          chaincodeID: {name: "AccountsManagement"},
+          ctorMsg: {function: "listAccounts", args: [$window.localStorage.getItem('hl_user').token]},
+          id: 5
+        }
       };
+      var params = setParams(configurableParams);
+      return Restangular.all('chaincode').customPOST(params);
     }
   }
 });
