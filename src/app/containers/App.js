@@ -5,7 +5,8 @@ angular
     controller: App
   });
 
-function App() {
+function App($scope) {
   this.todos = [initialTodo];
   this.filter = SHOW_ALL;
+  $scope.bodyClass = true;
 };

@@ -1,2 +1,46 @@
-<header-component todos="$ctrl.todos"></header-component>
-<h1>Accounts</h1>
+<header-component></header-component>
+
+<div class="wrapper">
+
+  <div class="panel panel-warning" ng-show="$ctrl.errorPresent" style="width: 40%;text-align: center">
+    <div class="panel-heading">
+      <h3 class="panel-title">Warning!</h3>
+    </div>
+    <div class="panel-body">
+      {{$ctrl.errorMessage}}
+    </div>
+    <div class="panel-footer">
+      <div class="header__user_btn header__user_btn_warning" ng-click="$ctrl.getAccounts()">
+        Refresh
+      </div>
+    </div>
+  </div>
+
+  <div class="accounts__container" ng-show="!$ctrl.errorPresent">
+    <div class="accounts__title">
+      <h1 class="accounts__title_text">Accounts</h1>
+      <div class="header__user_btn">
+        Transfer
+      </div>
+    </div>
+    {{alertMessage}}
+    -----------------
+    <!--{{userAccounts}}-->
+    <table ng-table="tableParams" show-filter="true"
+           class="table table-condensed table-bordered">
+      <tr ng-repeat="row in $data" ng-click="$ctrl.selectItem(row)" ng-class="{'table-row-selected': row.$selectedItem === true}">
+        <td data-title="'BIC'" sortable="'bic'" filter="{'bic': 'text'}" ng-bind="row.bic"></td>
+        <td data-title="'Number'" sortable="'number'" filter="{'number': 'number'}" ng-bind="row.number">{{row.number}}</td>
+        <td data-title="'Amount'" sortable="'amount'" filter="{'amount': 'number'}" ng-bind="row.amount"></td>
+        <td data-title="'Currency'" sortable="'currency'" filter="{'currency': 'text'}" ng-bind="row.currency"></td>
+        <td data-title="'Type'" sortable="'type'" filter="{'type': 'text'}" ng-bind="row.type"></td>
+        <td data-title="'Last activity'" sortable="'lastActivity'" filter="{'lastActivity': 'text'}"
+            ng-bind="row.lastActivity"></td>
+        <td data-title="'Permissions'" sortable="'permissions'" filter="{'permissions': 'text'}"
+            ng-bind="row.permissions"></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<footer-component></footer-component>

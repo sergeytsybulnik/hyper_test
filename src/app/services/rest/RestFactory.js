@@ -17,7 +17,7 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window)
             type: 1,
             chaincodeID:{ name:"UserManagement" },
             ctorMsg: {
-              function:"login",
+              function: "login",
               args: [data.bic, data.username, data.pwd]
               // args:[ "SPXBUAUK","super","Abcd1234" ]
             }
@@ -35,10 +35,13 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window)
       var configurableParams = {
         params: {
           type: 1,
-          chaincodeID: {name: "AccountsManagement"},
-          ctorMsg: {function: "listAccounts", args: [$window.localStorage.getItem('hl_user').token]},
-          id: 5
-        }
+          chaincodeID: {name: "AccountManagement"},//<Taken From The Properties File - Differs from the login one>
+          ctorMsg: {
+            function: "listAccounts",
+            args: [$window.localStorage.getObject('hl_user').token]
+          }
+        },
+        id: 5
       };
       var params = setParams(configurableParams);
       return Restangular.all('chaincode').customPOST(params);

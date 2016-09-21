@@ -1,13 +1,13 @@
-<header class="header">
+<header class="header__demo">
   <div class="header__caption">
-    <a href="/" class="header__logo">
-      <img class="header__logo_img" src="app/images/ieu_nocolor.png">
+    <a ui.sref="app" class="header__logo">
+      <img class="header__logo_img" src="/app/images/ieu_nocolor.png">
     </a>
     <div class="header__title">
       <h1 class="header__title_text">Hyperledger project</h1>
     </div>
   </div>
-
+  <div class="header__user" ng-show="!$ctrl.userIsPresent"> </div>
   <div class="header__user" ng-show="$ctrl.userIsPresent">
     <div class="header__user_item">
       <div class="header__user_value header__user_value_no">BIC:</div> <div class="header__user_value header__user_value_yes">{{$ctrl.user.bic}}</div>

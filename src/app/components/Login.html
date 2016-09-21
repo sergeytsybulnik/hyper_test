@@ -17,9 +17,10 @@
         <input class="login-form__field" type="password" name="password" ng-model="$ctrl.password" ng-required="true">
         <span class="login-form__desc">Please provide a password</span>
       </li>
-      <li class="login-form__item" ng-if="$ctrl.errorPresent" ng-class="{'login-form_item_error': $ctrl.errorPresent}">
+      <!--{{$ctrl.errorPresent}} | {{$ctrl.errorMessage}}-->
+      <li class="login-form__item" ng-show="$ctrl.errorPresent" ng-class="{'login-form_item_error': $ctrl.errorPresent}">
         <label class="login-form__label">Error</label>
-        <span class="login-form__desc" ng-model="$ctrl.errorMessage"></span>
+        <span class="login-form__desc">{{$ctrl.errorMessage}}</span>
       </li>
       <li class="login-form__item login-form__item_last">
         <button class="login-form__submit" type="submit" ng-disabled="loginForm.$invalid">Continue</button>
