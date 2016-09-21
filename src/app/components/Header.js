@@ -9,12 +9,12 @@ angular
   });
 
 /** @ngInject */
-function Header(todoService, $window, RestFactory) {
+function Header(todoService, $window, RestFactory, appConfig) {
   // this.todoService = todoService;
   this.userIsPresent = false;
   this.rests = RestFactory;
 
-  this.user = $window.localStorage.getObject('hl_user');
+  this.user = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER);
 
   if(angular.isDefined(this.user) && this.user !== null){
     this.userIsPresent = true;

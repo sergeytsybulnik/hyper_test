@@ -10,8 +10,8 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
     .state('app', {
       resolve: {
-        userResolve: function ($window, $location) {
-          var user = $window.localStorage.getObject('hl_user');
+        userResolve: function ($window, $location, appConfig) {
+          var user = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER);
           if (angular.isDefined(user) && user !== null) {
             console.log('User has been already stored!');
             $location.path('/accounts');
@@ -29,12 +29,17 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('accounts', {
       resolve: {
-        // userAccounts: function(RestFactory){
-        //   return RestFactory.getAccounts().then(function(response){
-        //     if(angular.isDefined(response)){
-        //       return response.plain();
-        //     }
-        //   })
+        // userAccounts: function(RestFactory, $window, $location, appConfig){
+        //   var user = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER);
+        //   if (angular.isDefined(user) && user !== null) {
+        //     return RestFactory.getAccounts().then(function(response){
+        //       if(angular.isDefined(response)){
+        //         return response.plain();
+        //       }
+        //     })
+        //   }else {
+        //     $location.path('/');
+        //   };
         // }
         userAccounts: function(){
           return {
@@ -109,24 +114,36 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
             },
             id: 5
           }
-
-          // return {
-          //   "jsonrpc":"2.0",
-          //   "result":{
-          //     "status":"OK",
-          //     "message":"{\"status\":\"Failure\",\"message\":\"BIC code or login or password you entered is incorrect.\"}"
-          //   },
-          //   "id":5
-          // }
+        //
+        //   // return {
+        //   //   "jsonrpc":"2.0",
+        //   //   "result":{
+        //   //     "status":"OK",
+        //   //     "message":"{\"status\":\"Failure\",\"message\":\"BIC code or login or password you entered is incorrect.\"}"
+        //   //   },
+        //   //   "id":5
+        //   // }
         }
-
-  // {"jsonrpc":"2.0","result":{"status":"OK","message":"{\"accounts\":[{\"id\":\"eyJ0eXBlIjoiYWNjb3VudCIsImhvbGRlciI6IkNJVElVUzMzIiwib3duZXIiOiJTUFhCVUFVSyIsImN1cnJlbmN5IjoiVVNEIiwiYWNjb3VudFR5cGUiOiJ2b3N0cm8ifQ==\",\"bic\":\"SPXBUAUK\",\"number\":\"4321\",\"amount\":\"500\",\"currency\":\"USD\",\"type\":\"vostro\",\"lastActivity\":\"2016-09-19T15:21:40.042\",\"permissions\":\"read\"},{\"id\":\"eyJ0eXBlIjoiYWNjb3VudCIsImhvbGRlciI6IkNJVElVUzMzIiwib3duZXIiOiJTUFhCVUFVSyIsImN1cnJlbmN5IjoiVVNEIiwiYWNjb3VudFR5cGUiOiJ2b3N0cm8ifQ==\",\"bic\":\"SPXBUAUK\",\"number\":\"4321\",\"amount\":\"500\",\"currency\":\"USD\",\"type\":\"vostro\",\"lastActivity\":\"2016-09-19T15:21:40.042\",\"permissions\":\"read\"}]}"},"id":5}
       },
       url: '/accounts',
       component: 'accountsComponent'
     })
     .state('transactions', {
-      url: '/transactions'
-      // component: 'accountComponent'
+      url: '/transactions',
+      component: 'transactionComponent',
+      resolve: {
+        userAccountTransactions: function(RestFactory, $window, $location, appConfig){
+          var user = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER);
+          if (angular.isDefined(user) && user !== null) {
+            return RestFactory.getTransactionsForAccount(accountID, user.token).then(function(response){
+              if(angular.isDefined(response)){
+                return response.plain();
+              }
+            })
+          }else {
+            $location.path('/');
+          };
+        }
+      }
     });
 }

@@ -1,7 +1,6 @@
 angular
-  .module('app', ['ui.router', 'restangular', 'ngTable']);
-
-angular.module('app').run(function($rootScope, $state){
+  .module('app', ['ui.router', 'restangular', 'ngTable', 'angularModalService'])
+  .run(function(){
     if ('localStorage' in window && window['localStorage'] !== null) {
       // we can use localStorage object to store data
       console.info('We can use LocalStorage!');
@@ -10,13 +9,9 @@ angular.module('app').run(function($rootScope, $state){
       console.info("We can't use LocalStorage!");
       return false;
     }
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-      console.log('fromState : ', fromState);
-      console.log('toState : ', toState);
-    });
-  });
-angular.module('app').config(function(RestangularProvider) {
-    RestangularProvider.setBaseUrl('http://192.168.0.246:7050/');
+  })
+  .config(function(RestangularProvider, appConfig) {
+    RestangularProvider.setBaseUrl(appConfig.ENDPOINT);
     RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
 
   })

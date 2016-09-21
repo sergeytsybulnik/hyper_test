@@ -1,6 +1,9 @@
-angular.module('app').factory('RestFactory',  function(Restangular, $q, $window){
+angular.module('app').factory('RestFactory',  function(Restangular, $q, $window, appConfig){
 
   var defaultParams = {"jsonrpc": "2.0", "method": "query"};
+
+  var defaultPathname = appConfig.CHAINCODE;
+
   var isDefined = function(value) {
     return angular.isDefined(value) && value !== null;
   }
@@ -14,18 +17,21 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window)
         var configurableParams = {
           params:
           {
-            type: 1,
-            chaincodeID:{ name:"UserManagement" },
+            type: appConfig.TYPE,
+            chaincodeID: {
+              name: appConfig.CHAINCODEID_LOGIN
+            },
             ctorMsg: {
-              function: "login",
+              function: appConfig.CHAINCODEID_LOGIN_FUNC,
               args: [data.bic, data.username, data.pwd]
               // args:[ "SPXBUAUK","super","Abcd1234" ]
             }
           },
-          id: 5 };
+          id: appConfig.ID
+        };
       }
       var params = setParams(configurableParams);
-      return Restangular.all('chaincode').customPOST(params);
+      return Restangular.all(defaultPathname).customPOST(params);
     },
     logout: function(){
       $window.localStorage.clear();
@@ -34,17 +40,73 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window)
     getAccounts: function(){
       var configurableParams = {
         params: {
-          type: 1,
-          chaincodeID: {name: "AccountManagement"},//<Taken From The Properties File - Differs from the login one>
+          type: appConfig.TYPE,
+          chaincodeID: {
+            name: appConfig.CHAINCODEID_ACCOUNTS
+          },
           ctorMsg: {
-            function: "listAccounts",
-            args: [$window.localStorage.getObject('hl_user').token]
+            function: appConfig.CHAINCODEID_ACCOUNTS_FUNC,
+            args: [$window.localStorage.getObject(appConfig.LOCALSTORAGE_USER).token]
           }
         },
-        id: 5
+        id: appConfig.ID
       };
       var params = setParams(configurableParams);
-      return Restangular.all('chaincode').customPOST(params);
+      return Restangular.all(defaultPathname).customPOST(params);
+    },
+    getTransactionsForAccount: function(accountID, token){
+      console.log('accountID: ', accountID);
+      console.log('token', token);
+      // var configurableParams = {
+      //   params:{
+      //     type: appConfig.TYPE,
+      //     chaincodeID:{
+      //       name: appConfig.CHAINCODEID_TRANSACTIONS
+      //     },
+      //     ctorMsg:{
+      //       function: appConfig.CHAINCODEID_TRANSACTIONS_FUNC,
+      //       args:[
+      //         token,
+      //         accountID
+      //       ]
+      //     }
+      //   },
+      //   id: appConfig.ID
+      // };
+      // var params = setParams(configurableParams);
+      // return Restangular.all(defaultPathname).customPOST(params);
+
+      return {
+        "accountState":{
+          "amount":"123.45",
+          "currency":"USD"
+        },
+        "transactions":[
+          {
+            "id":"9f750867-89e7-47f1-a560-ac2862abcf38",
+            "transfer":{
+              "counterparty":{
+                "bic":"SPXBUAUK",
+                "account":"453435"
+              },
+              "amount":"2425,00",
+              "currency":"USD",
+              "type":"debit"
+            },
+            "time":"2016-09-07T16:33:56Z",
+            "status":"OK",
+            "accountState":{
+              "amount":1000,
+              "currency":"USD"
+            },
+            "details":{
+              "inputMessage":"base64EncodedInputMessage",
+              "outputMessage":"base64EncodedOutputMessage",
+              "reason":"Output MT103 message has been generated"
+            }
+          }
+        ]
+      }
     }
   }
 });

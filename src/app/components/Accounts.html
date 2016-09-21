@@ -17,15 +17,14 @@
   </div>
 
   <div class="accounts__container" ng-show="!$ctrl.errorPresent">
+
     <div class="accounts__title">
       <h1 class="accounts__title_text">Accounts</h1>
       <div class="header__user_btn">
         Transfer
       </div>
     </div>
-    {{alertMessage}}
-    -----------------
-    <!--{{userAccounts}}-->
+
     <table ng-table="tableParams" show-filter="true"
            class="table table-condensed table-bordered">
       <tr ng-repeat="row in $data" ng-click="$ctrl.selectItem(row)" ng-class="{'table-row-selected': row.$selectedItem === true}">
@@ -40,6 +39,7 @@
             ng-bind="row.permissions"></td>
       </tr>
     </table>
+
   </div>
 </div>
 
