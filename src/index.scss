@@ -410,6 +410,10 @@ body {
   .accounts__title_btn{
     flex-grow: 1;
   }
+  .accounts__title_status{
+    flex-grow: .2;
+    text-align: right;
+  }
 }
 
 table {
@@ -475,6 +479,7 @@ th {
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
   border-bottom-width: 2px;
+  vertical-align: middle;
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #f9f9f9;

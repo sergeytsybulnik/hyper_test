@@ -138,9 +138,7 @@ AccountController.prototype = {
     //   if(angular.isDefined(response.plain())) {
 
         // var resp = response.plain();
-        if(angular.isDefined(resp.result)){
-          var message = angular.fromJson(resp.result.message);
-
+        if(angular.isDefined(resp.transactions) && resp.transactions.length > 0){
           if (angular.isDefined(message.status) && message.status === "OK") {
 
           }else{
@@ -176,5 +174,5 @@ AccountController.prototype = {
       this.selectedItem = undefined;
       this.$window.localStorage.removeItem(this.appConfig.LOCALSTORAGE_USER + this.appConfig.LOCALSTORAGE_USER_ACCOUNT_SELECTED);
     }
-  },
+  }
 };

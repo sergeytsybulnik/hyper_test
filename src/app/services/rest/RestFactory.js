@@ -75,38 +75,69 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window,
       // };
       // var params = setParams(configurableParams);
       // return Restangular.all(defaultPathname).customPOST(params);
-
       return {
-        "accountState":{
-          "amount":"123.45",
-          "currency":"USD"
-        },
-        "transactions":[
-          {
-            "id":"9f750867-89e7-47f1-a560-ac2862abcf38",
-            "transfer":{
-              "counterparty":{
-                "bic":"SPXBUAUK",
-                "account":"453435"
-              },
-              "amount":"2425,00",
-              "currency":"USD",
-              "type":"debit"
-            },
-            "time":"2016-09-07T16:33:56Z",
-            "status":"OK",
-            "accountState":{
-              "amount":1000,
-              "currency":"USD"
-            },
-            "details":{
-              "inputMessage":"base64EncodedInputMessage",
-              "outputMessage":"base64EncodedOutputMessage",
-              "reason":"Output MT103 message has been generated"
-            }
-          }
-        ]
+        "jsonrpc": "2.0",
+        "result": {
+          "status": "OK",
+          "message": "{\"accountState\":{\"amount\":\"123.45\",\"currency\":\"USD\"},\"transactions\":[{\"id\":\"9f750867-89e7-47f1-a560-ac2862abcf38\",\"transfer\":{\"counterparty\":{\"bic\":\"SPXBUAUK\",\"account\":\"453435\"},\"amount\":\"2425,00\",\"currency\":\"USD\",\"type\":\"debit\"},\"time\":\"2016-09-07T16:33:56Z\",\"status\":\"OK\",\"accountState\":{\"amount\":1000,\"currency\":\"USD\"},\"details\":{\"inputMessage\":\"base64EncodedInputMessage\",\"outputMessage\":\"base64EncodedOutputMessage\",\"reason\":\"Output MT103 message has been generated\"}}]}",
+          id: 5
+        }
       }
+
+      // return {
+      //   "accountState":{
+      //     "amount":"123.45",
+      //     "currency":"USD"
+      //   },
+      //   "transactions":[
+      //     {
+      //       "id":"9f750867-89e7-47f1-a560-ac2862abcf38",
+      //       "transfer":{
+      //         "counterparty":{
+      //           "bic":"SPXBUAU1",
+      //           "account":"453435"
+      //         },
+      //         "amount":"2425,00",
+      //         "currency":"USD",
+      //         "type":"debit"
+      //       },
+      //       "time":"2016-09-07T16:33:56Z",
+      //       "status":"OK",
+      //       "accountState":{
+      //         "amount":1000,
+      //         "currency":"USD"
+      //       },
+      //       "details":{
+      //         "inputMessage":"base64EncodedInputMessage",
+      //         "outputMessage":"base64EncodedOutputMessage",
+      //         "reason":"Output MT103 message has been generated"
+      //       }
+      //     },
+      //     {
+      //       "id":"9f750867-89e7-47f1-a560-ac2862abcf38",
+      //       "transfer":{
+      //         "counterparty":{
+      //           "bic":"SPXBUAU2",
+      //           "account":"453436"
+      //         },
+      //         "amount":"3425,00",
+      //         "currency":"EUR",
+      //         "type":"credit"
+      //       },
+      //       "time":"2016-09-07T16:33:56Z",
+      //       "status":"OK",
+      //       "accountState":{
+      //         "amount":500,
+      //         "currency":"EUR"
+      //       },
+      //       "details":{
+      //         "inputMessage":"base64EncodedInputMessage",
+      //         "outputMessage":"base64EncodedOutputMessage",
+      //         "reason":"Output MT103 message has been generated"
+      //       }
+      //     }
+      //   ]
+      // }
     }
   }
 });

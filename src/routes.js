@@ -134,12 +134,18 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       resolve: {
         userAccountTransactions: function(RestFactory, $window, $location, appConfig){
           var user = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER);
+          var account = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER + appConfig.LOCALSTORAGE_USER_ACCOUNT_SELECTED);
           if (angular.isDefined(user) && user !== null) {
-            return RestFactory.getTransactionsForAccount(accountID, user.token).then(function(response){
-              if(angular.isDefined(response)){
-                return response.plain();
-              }
-            })
+            if(angular.isDefined(account) && account !== null){
+              return RestFactory.getTransactionsForAccount(account.id, user.token).result;
+              // return RestFactory.getTransactionsForAccount(account.id, user.token).then(function(response){
+              //   if(angular.isDefined(response)){
+              //     return response.plain().result;
+              //   }
+              // })
+            }else {
+              $location.path('/accounts');
+            };
           }else {
             $location.path('/');
           };

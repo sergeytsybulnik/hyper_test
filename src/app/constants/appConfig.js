@@ -16,6 +16,7 @@ angular.module('app')
     LOCALSTORAGE_USER: "hl_user",
     LOCALSTORAGE_USER_ACCOUNTS: "_accounts",
     LOCALSTORAGE_USER_ACCOUNT_SELECTED: "_account_selected",
+    LOCALSTORAGE_USER_TRANSACTION_SELECTED: "_transaction_selected",
     ID: 5,
     TYPE: 1,
     QUERY_FAILURE: "Query failure",
