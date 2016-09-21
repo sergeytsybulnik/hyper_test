@@ -10,10 +10,15 @@ angular
     }
   });
 
-function TransactionController($scope, appConfig, NgTableParams, $interval, RestFactory, $window, $timeout, $filter, ModalService){
+function TransactionController($scope, appConfig, $state, NgTableParams, $interval, RestFactory, $window, $timeout, $filter, ModalService){
   this.RestFactory = RestFactory;
   this.$window = $window;
   this.appConfig = appConfig;
+  this.$interval = $interval;
+  this.$state = $state;
+  this.ModalService = ModalService;
+
+  var _self = this;
 
   this.$onInit = function () {
     this.errorPresent = this.errorPresent || false;
@@ -21,7 +26,7 @@ function TransactionController($scope, appConfig, NgTableParams, $interval, Rest
     this.selectedItem = undefined;
   };
 
-  $scope.userAccountTransactions = this.calc();
+  $scope.userAccountTransactions = this.calc(this.userAccountTransactions);
 
   if($scope.userAccountTransactions.transactions !== null){
     $scope.tableParams = new NgTableParams(
@@ -45,12 +50,25 @@ function TransactionController($scope, appConfig, NgTableParams, $interval, Rest
       }
     );
   }
+
+  var c = 0;
+  _self.$interval(function () {
+    var token = _self.$window.localStorage.getObject(_self.appConfig.LOCALSTORAGE_USER).token;
+    $scope.userAccountTransactions.transactions[0].transfer.amount += c;
+    //TO DO
+    // _self.RestFactory.getTransactionsForAccount(_self.$state.params.accountID, token).then(function (response) {
+    //   if (angular.isDefined(response.plain())) {
+    //     $scope.userAccountTransactions = _self.calc(response.plain());
+    //   }
+    // });
+    c++;
+  }, 5000);
 };
 
 TransactionController.prototype = {
-  calc: function(){
+  calc: function(data){
     var _self = this;
-    var resp = _self.userAccountTransactions;
+    var resp = data;
 
     if (angular.isDefined(resp.status) && resp.status === "OK") {
 
@@ -71,6 +89,7 @@ TransactionController.prototype = {
 
   },
   selectItem: function (item) {
+    var _self = this;
     if (this.selectedItem !== item) {
       if (angular.isDefined(this.selectedItem) && this.selectedItem !== null) {
         this.selectedItem.$selectedItem = false;
@@ -79,6 +98,29 @@ TransactionController.prototype = {
       this.selectedItem = item;
       this.selectedItem.$selectedItem = true;
       this.$window.localStorage.setObject(this.appConfig.LOCALSTORAGE_USER + this.appConfig.LOCALSTORAGE_USER_TRANSACTION_SELECTED, this.selectedItem);
+      this.ModalService.showModal({
+        templateUrl: "app/containers/modal/TransactionDetails.html",
+        controller: function($scope, close){
+
+          function b64DecodeUnicode(str) {
+            return decodeURIComponent(Array.prototype.map.call(atob(str), function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+          }
+
+          $scope.close = function(result) {
+            close('', 100); // close, but give 500ms for bootstrap to animate
+          };
+          $scope.title = "Transaction details";
+          $scope.inputMessage = b64DecodeUnicode(_self.selectedItem.details.inputMessage);
+          $scope.outputMessage = b64DecodeUnicode(_self.selectedItem.details.outputMessage);
+          $scope.reason = _self.selectedItem.details.reason;
+        }
+      }).then(function(modal) {
+        modal.close.then(function(result) {
+          this.customResult = "All good!";
+        });
+      });
     } else {
       this.selectedItem.$selectedItem = !this.selectedItem.$selectedItem;
       this.selectedItem = undefined;

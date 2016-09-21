@@ -7,7 +7,8 @@
     "todomvc-app-css": "^2.0.4",
     "restangular": "^1.5.2",
     "ng-table": "0.8.3",
-    "angular-modal-service": "^0.10.1"
+    "angular-modal-service": "^0.10.1",
+    "angular-animate": "^1.5.8"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0"

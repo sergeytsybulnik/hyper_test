@@ -29,6 +29,7 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('accounts', {
       resolve: {
+        //TO DO
         // userAccounts: function(RestFactory, $window, $location, appConfig){
         //   var user = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER);
         //   if (angular.isDefined(user) && user !== null) {
@@ -129,15 +130,16 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       component: 'accountsComponent'
     })
     .state('transactions', {
-      url: '/transactions',
+      url: '/transactions/:accountID',
       component: 'transactionComponent',
       resolve: {
-        userAccountTransactions: function(RestFactory, $window, $location, appConfig){
+        userAccountTransactions: function(RestFactory, $window, $location, appConfig, $stateParams){
           var user = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER);
-          var account = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER + appConfig.LOCALSTORAGE_USER_ACCOUNT_SELECTED);
+          // var account = $window.localStorage.getObject(appConfig.LOCALSTORAGE_USER + appConfig.LOCALSTORAGE_USER_ACCOUNT_SELECTED);
           if (angular.isDefined(user) && user !== null) {
-            if(angular.isDefined(account) && account !== null){
-              return RestFactory.getTransactionsForAccount(account.id, user.token).result;
+            if(angular.isDefined($stateParams.accountID) && $stateParams.accountID.length > 0 && $stateParams.accountID !== null){
+              //TO DO
+              return RestFactory.getTransactionsForAccount($stateParams.accountID, user.token).result;
               // return RestFactory.getTransactionsForAccount(account.id, user.token).then(function(response){
               //   if(angular.isDefined(response)){
               //     return response.plain().result;

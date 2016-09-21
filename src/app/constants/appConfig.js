@@ -11,8 +11,10 @@ angular.module('app')
     CHAINCODEID_ACCOUNTS_FUNC: "listAccounts",
     CHAINCODEID_TRANSACTIONS: "TransactionManagement", //Taken From The Properties File - Differs from the login and accounts one
     CHAINCODEID_TRANSACTIONS_FUNC: "listTransactions",
-    CHAINCODEID_PERMISSIONS: "TransactionManagement",
+    CHAINCODEID_PERMISSIONS: "TransactionManagement",//<Taken From The Properties File - Differs from the login and accounts one>
     CHAINCODEID_PERMISSIONS_FUNC: "checkPermissions",
+    CHAINCODEID_TRANSFER: "TransactionManagement",//<Taken From The Properties File - the same as for prev query call>
+    CHAINCODEID_TRANSFER_FUNC: "transfer",
     LOCALSTORAGE_USER: "hl_user",
     LOCALSTORAGE_USER_ACCOUNTS: "_accounts",
     LOCALSTORAGE_USER_ACCOUNT_SELECTED: "_account_selected",

@@ -1,5 +1,5 @@
 angular
-  .module('app', ['ui.router', 'restangular', 'ngTable', 'angularModalService'])
+  .module('app', ['ui.router', 'restangular', 'ngTable', 'angularModalService', 'ngAnimate'])
   .run(function(){
     if ('localStorage' in window && window['localStorage'] !== null) {
       // we can use localStorage object to store data

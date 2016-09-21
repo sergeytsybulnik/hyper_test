@@ -1,0 +1,25 @@
+<div class="modal fade in">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="message-item">
+          <p>Input Message:</p>
+          <textarea readonly>{{inputMessage}}</textarea>
+        </div>
+        <div class="message-item">
+          <p>Output Message:</p>
+          <textarea readonly>{{outputMessage}}</textarea>
+        </div>
+        <p>Reason:</p>
+        <textarea readonly>{{reason}}</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="close()" class="header__user_btn header__user_btn_warning">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
