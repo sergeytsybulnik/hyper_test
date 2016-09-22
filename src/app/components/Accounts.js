@@ -47,7 +47,7 @@ function AccountController($scope, appConfig, NgTableParams, $interval, RestFact
             $filter('orderBy')(filteredData, params.orderBy()) :
             filteredData;
           params.total(orderedDate.length);
-          $defer.resolve($scope.userAccounts.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+          $defer.resolve(orderedDate.slice((params.page() - 1) * params.count(), params.page() * params.count()));
         }
       }
     );
@@ -55,8 +55,8 @@ function AccountController($scope, appConfig, NgTableParams, $interval, RestFact
 
   var c = 0;
   _self.$interval(function () {
-    $scope.userAccounts[0].number += c;
-    $scope.userAccounts[0].amount += c;
+    $scope.userAccounts[0].number = $scope.userAccounts[0].number - c;
+    $scope.userAccounts[0].amount = $scope.userAccounts[0].amount - c;
 
     $scope.tableParams.total($scope.userAccounts.length);
     $scope.tableParams.reload();
@@ -187,6 +187,8 @@ AccountController.prototype = {
             return String.fromCharCode('0x' + p1);
           }));
         };
+
+        $scope.message = undefined;
 
         $scope.close = function(result) {
           console.log(result);

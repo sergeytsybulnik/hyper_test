@@ -54,7 +54,7 @@ function TransactionController($scope, appConfig, $state, NgTableParams, $interv
   var c = 0;
   _self.$interval(function () {
     var token = _self.$window.localStorage.getObject(_self.appConfig.LOCALSTORAGE_USER).token;
-    $scope.userAccountTransactions.transactions[0].transfer.amount += c;
+    $scope.userAccountTransactions.transactions[0].transfer.amount = parseInt($scope.userAccountTransactions.transactions[0].transfer.amount) - c +',00';
     //TO DO
     // _self.RestFactory.getTransactionsForAccount(_self.$state.params.accountID, token).then(function (response) {
     //   if (angular.isDefined(response.plain())) {
@@ -114,7 +114,7 @@ TransactionController.prototype = {
           $scope.title = "Transaction details";
           $scope.inputMessage = b64DecodeUnicode(_self.selectedItem.details.inputMessage);
           $scope.outputMessage = b64DecodeUnicode(_self.selectedItem.details.outputMessage);
-          $scope.reason = _self.selectedItem.details.reason;
+          $scope.reason = b64DecodeUnicode(_self.selectedItem.transactionStatus.comment);
         }
       }).then(function(modal) {
         modal.close.then(function(result) {

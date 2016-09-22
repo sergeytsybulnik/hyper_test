@@ -79,36 +79,6 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
                     "type":"nostro",
                     "lastActivity":"2016-09-16T14:17:14.050",
                     "permissions":"transfer"
-                  },
-                  {
-                    "id": "eyJ0eXBlIjoiYWNjb3VudCIsImhvbGRlciI6IkNJVElVUzMzIiwib3duZXIiOiJTUFhCVUFVSyIsImN1cnJlbmN5IjoiVVNEIiwiYWNjb3VudFR5cGUiOiJ2b3N0cm8ifQ",
-                    "bic":"APXBUAUK",
-                    "number":"5555",
-                    "amount":"500",
-                    "currency":"USD",
-                    "type":"nostro",
-                    "lastActivity":"2016-09-16T14:16:53.728",
-                    "permissions":"transfer"
-                  },
-                  {
-                    "id": "eyJ0eXBlIjoiYWNjb3VudCIsImhvbGRlciI6IkNJVElVUzMzIiwib3duZXIiOiJTUFhCVUFVSyIsImN1cnJlbmN5IjoiVVNEIiwiYWNjb3VudFR5cGUiOiJ2b3N0cm8ifQ",
-                    "bic":"SPXXUAUK",
-                    "number":"2222",
-                    "amount":"1000",
-                    "currency":"USD",
-                    "type":"vostro",
-                    "lastActivity":"2016-09-16T14:17:21.757",
-                    "permissions":"read"
-                  },
-                  {
-                    "id": "eyJ0eXBlIjoiYWNjb3VudCIsImhvbGRlciI6IkNJVElVUzMzIiwib3duZXIiOiJTUFhCVUFVSyIsImN1cnJlbmN5IjoiVVNEIiwiYWNjb3VudFR5cGUiOiJ2b3N0cm8ifQ",
-                    "bic":"SPXBUAU0",
-                    "number":"3333",
-                    "amount":"333",
-                    "currency":"EUR",
-                    "type":"vostro",
-                    "lastActivity":"2016-09-16T14:17:14.050",
-                    "permissions":"read"
                   }
                 ]
               }

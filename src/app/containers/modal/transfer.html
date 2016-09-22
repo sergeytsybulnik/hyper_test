@@ -9,7 +9,7 @@
           <textarea style="min-height: 200px" ng-model="message"></textarea>
       </div>
       <div class="modal-footer">
-        <button type="button" ng-click="close('yes')" class="header__user_btn header__user_btn_warning">Submit</button>
+        <button type="button" ng-click="close('yes')" class="header__user_btn header__user_btn_warning" ng-disabled="message === undefined">Submit</button>
         <button type="button" ng-click="close('no')" class="header__user_btn header__user_btn_warning">Close</button>
       </div>
     </div>

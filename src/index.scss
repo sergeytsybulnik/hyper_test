@@ -218,6 +218,9 @@ body {
     background-color: #e6e6e6;
     border-color: #8c8c8c;
   }
+  &[disabled="disabled"]{
+    cursor: not-allowed;
+  }
 }
 
 .header__user_btn_warning{
@@ -398,19 +401,26 @@ body {
   color: #FFFFFF;
   padding: 10px;
   background-color: $bg-accounts;
+  width: auto;
+  margin:10px 0px;
+  position: relative;
+
+  &_breadcrumb{
+    width:225px;position: absolute;top:-85px; left:0%
+  }
 }
 .accounts__title{
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   padding: 20px 0px;
-  .accounts__title_text{
+  &_text{
     flex-grow: 4;
   }
-  .accounts__title_btn{
+  &_btn{
     flex-grow: 1;
   }
-  .accounts__title_status{
+  &_status{
     flex-grow: .2;
     text-align: right;
   }
@@ -1002,4 +1012,26 @@ button.close {
   textarea{
     min-height:200px
   }
+}
+
+.breadcrumb {
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  list-style: none;
+  background-color: $bg-accounts;
+  border-radius: 4px;
+}
+
+.breadcrumb>li {
+  display: inline-block;
+}
+
+.breadcrumb>.active {
+  color: #ffffff;
+}
+
+.breadcrumb>li+li:before {
+  padding: 0 5px;
+  color: #ffffff;
+  content: "/\00a0";
 }

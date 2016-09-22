@@ -38,7 +38,6 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window,
       $window.location.href = window.location.origin;
     },
     getAccounts: function(){
-      //TO DO
       // var configurableParams = {
       //   params: {
       //     type: appConfig.TYPE,
@@ -130,7 +129,6 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window,
     getTransactionsForAccount: function(accountID, token){
       console.log('accountID: ', accountID);
       console.log('token', token);
-      //TO DO
       // var configurableParams = {
       //   params:{
       //     type: appConfig.TYPE,
@@ -150,11 +148,11 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window,
       // var params = setParams(configurableParams);
       // return Restangular.all(defaultPathname).customPOST(params);
       return {
-        "jsonrpc": "2.0",
-        "result": {
-          "status": "OK",
-          "message": "{\"accountState\":{\"amount\":\"123.45\",\"currency\":\"USD\"},\"transactions\":[{\"id\":\"9f750867-89e7-47f1-a560-ac2862abcf38\",\"transfer\":{\"counterparty\":{\"bic\":\"SPXBUAUK\",\"account\":\"453435\"},\"amount\":\"2425,00\",\"currency\":\"USD\",\"type\":\"debit\"},\"time\":\"2016-09-07T16:33:56Z\",\"status\":\"OK\",\"accountState\":{\"amount\":1000,\"currency\":\"USD\"},\"details\":{\"inputMessage\":\"ezE6RjAxU1BYQlVBVTFYWFhYMDAwMDAwMDAwMH17MjpJMTAzU1BYQlVBVTJYWFhYTn17Mzp7MTE5OlNUUH19ezQ6DQo6MjA6UEFZLzAwMw0KOjIzQjpDUkVEDQo6MzJBOjE2MDkyNlVTRDMyMiwwMA0KOjMzQjpVU0QzMjIsMDANCjo1MEs6L0FjY291bnRBDQpTRU5ERVJTIEFERFJFU1MNCjMwMjIyIFpVUklDSA0KOjU3QTpTUFhCVUFVMw0KOjU5QTovQWNjb3VudEINClJFQ0VJVkVSIEFERFJFU1MNCjE0NDU2IEdFTkVWQQ0KOjcwOk1vbmV5IHRyYW5zZmVyIHVzaW5nIEhMIGNvZGVjaGFpbg0KOjcxQTpPVVINCjo3MUc6VVNEMTIsMDANCi19\",\"outputMessage\":\"ezE6RjAxU1BYQlVBVTFYWFhYMDAwMDAwMDAwMH17MjpJMTAzU1BYQlVBVTJYWFhYTn17Mzp7MTE5OlNUUH19ezQ6DQo6MjA6UEFZLzAwMw0KOjIzQjpDUkVEDQo6MzJBOjE2MDkyNlVTRDMyMiwwMA0KOjMzQjpVU0QzMjIsMDANCjo1MEs6L0FjY291bnRBDQpTRU5ERVJTIEFERFJFU1MNCjMwMjIyIFpVUklDSA0KOjU3QTpTUFhCVUFVMw0KOjU5QTovQWNjb3VudEINClJFQ0VJVkVSIEFERFJFU1MNCjE0NDU2IEdFTkVWQQ0KOjcwOk1vbmV5IHRyYW5zZmVyIHVzaW5nIEhMIGNvZGVjaGFpbg0KOjcxQTpPVVINCjo3MUc6VVNEMTIsMDANCi19\",\"reason\":\"Output MT103 message has been generated\"}}]}",
-          id: 5
+        "jsonrpc":"2.0",
+        "result":{
+          "status":"OK",
+          "message":"{\"accountState\":{\"amount\":\"123.45\",\"currency\":\"USD\"},\"transactions\":[{\"id\":\"9f750867-89e7-47f1-a560-ac2862abcf38\",\"transfer\":{\"sender\":{\"bic\":\"SPXBUAU1\",\"account\":\"AccountA\"},\"receiver\":{\"bic\":\"SPXBUAU3\",\"account\":\"AccountB\"},\"amount\":\"2425,00\",\"currency\":\"USD\",\"type\":\"debit\"},\"time\":\"2016-09-07T16:33:56Z\",\"accountState\":{\"amount\":1000,\"currency\":\"USD\"},\"transactionStatus\":{\"status\":\"SUCCESS\",\"comment\":\"T3V0cHV0IE1UMTAzIG1lc3NhZ2UgaGFzIGJlZW4gZ2VuZXJhdGVk\"},\"details\":{\"inputMessage\":\"ezE6RjAxU1BYQlVBVTFYWFhYMDAwMDAwMDAwMH17MjpJMTAzU1BYQlVBVTJYWFhYTn17Mzp7MTE5OlNUUH19ezQ6DQo6MjA6UEFZLzAwMw0KOjIzQjpDUkVEDQo6MzJBOjE2MDkyNlVTRDMyMiwwMA0KOjMzQjpVU0QzMjIsMDANCjo1MEs6L0FjY291bnRBDQpTRU5ERVJTIEFERFJFU1MNCjMwMjIyIFpVUklDSA0KOjU3QTpTUFhCVUFVMw0KOjU5QTovQWNjb3VudEINClJFQ0VJVkVSIEFERFJFU1MNCjE0NDU2IEdFTkVWQQ0KOjcwOk1vbmV5IHRyYW5zZmVyIHVzaW5nIEhMIGNvZGVjaGFpbg0KOjcxQTpPVVINCjo3MUc6VVNEMTIsMDANCi19\",\"outputMessage\":\"ezE6RjAxU1BYQlVBVTFYWFhYMDAwMDAwMDAwMH17MjpJMTAzU1BYQlVBVTJYWFhYTn17Mzp7MTE5OlNUUH19ezQ6DQo6MjA6UEFZLzAwMw0KOjIzQjpDUkVEDQo6MzJBOjE2MDkyNlVTRDMyMiwwMA0KOjMzQjpVU0QzMjIsMDANCjo1MEs6L0FjY291bnRBDQpTRU5ERVJTIEFERFJFU1MNCjMwMjIyIFpVUklDSA0KOjU3QTpTUFhCVUFVMw0KOjU5QTovQWNjb3VudEINClJFQ0VJVkVSIEFERFJFU1MNCjE0NDU2IEdFTkVWQQ0KOjcwOk1vbmV5IHRyYW5zZmVyIHVzaW5nIEhMIGNvZGVjaGFpbg0KOjcxQTpPVVINCjo3MUc6VVNEMTIsMDANCi19\"}}]}",
+          "id": 5
         }
       }
 
@@ -234,44 +232,44 @@ angular.module('app').factory('RestFactory',  function(Restangular, $q, $window,
       // };
       // var params = setParams(configurableParams);
       // return Restangular.all(defaultPathname).customPOST(params);
-      return {
-        "jsonrpc":"2.0",
-        "result":{
-          "status":"OK",
-          "message":"{\"status\":\"OK\"}"
-        },
-        "id":5
-      }
       // return {
       //   "jsonrpc":"2.0",
       //   "result":{
       //     "status":"OK",
-      //     "message":"{\"status\":\"Failure\",\"message\":\"Authenticated user is not allowed to perform this transaction.\"}"
+      //     "message":"{\"status\":\"OK\"}"
       //   },
-      //   "id": 5
+      //   "id":5
       // }
+      return {
+        "jsonrpc":"2.0",
+        "result":{
+          "status":"OK",
+          "message":"{\"status\":\"Failure\",\"message\":\"Authenticated user is not allowed to perform this transaction.\"}"
+        },
+        "id": 5
+      }
     },
     //
     transfer: function (token, message) {
-      // var configurableParams = {
-      //   jsonrpc: "2.0",
-      //   method: "invoke",
-      //   params:{
-      //     type: appConfig.TYPE,
-      //     chaincodeID:{
-      //       name: appConfig.CHAINCODEID_TRANSFER//<Taken From The Properties File - the same as for prev query call>
-      //     },
-      //     ctorMsg:{
-      //       function: appConfig.CHAINCODEID_TRANSFER_FUNC,
-      //       args:[
-      //         //TO DO: check true params
-      //         token,
-      //         message//<Body of the message from the form - needs to be Base64 encoded to be passed as json parameter>
-      //       ]
-      //     }
-      //   },
-      //   id: appConfig.ID
-      // };
+      var configurableParams = {
+        jsonrpc: "2.0",
+        method: "invoke",
+        params:{
+          type: appConfig.TYPE,
+          chaincodeID:{
+            name: appConfig.CHAINCODEID_TRANSFER//<Taken From The Properties File - the same as for prev query call>
+          },
+          ctorMsg:{
+            function: appConfig.CHAINCODEID_TRANSFER_FUNC,
+            args:[
+              //TO DO: check true params
+              token,
+              message//<Body of the message from the form - needs to be Base64 encoded to be passed as json parameter>
+            ]
+          }
+        },
+        id: appConfig.ID
+      };
       // return Restangular.all(defaultPathname).customPOST(configurableParams);
       return {"jsonrpc":"2.0","result":{"status":"OK","message":"9f750867-89e7-47f1-a560-ac2862abcf38"},"id":5};
     }

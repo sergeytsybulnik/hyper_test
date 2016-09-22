@@ -18,18 +18,23 @@
 
   <div class="accounts__container" ng-show="!$ctrl.errorPresent">
 
+    <div class="accounts__container accounts__container_breadcrumb" style="width:225px;position: absolute;top:-85px; left:0%">
+      <ol class="breadcrumb">
+        <li class="active">Accounts</li>
+      </ol>
+    </div>
+
     <div class="accounts__title">
-      <h1 class="accounts__title_text">Accounts</h1>
+      <!--<h1 class="accounts__title_text">Accounts</h1>-->
       <div class="header__user_btn" ng-click="$ctrl.transferModal()">
         Transfer
       </div>
     </div>
 
-    <table ng-table="tableParams" show-filter="true"
-           class="table table-condensed table-bordered">
+    <table ng-table="tableParams" show-filter="true" class="table table-condensed table-bordered">
       <tr ng-repeat="row in $data" ng-click="$ctrl.selectItem(row)" ng-class="{'table-row-selected': row.$selectedItem === true}">
         <td data-title="'BIC'" sortable="'bic'" filter="{'bic': 'text'}" ng-bind="row.bic"></td>
-        <td data-title="'Number'" sortable="'number'" filter="{'number': 'number'}" ng-bind="row.number">{{row.number}}</td>
+        <td data-title="'Number'" sortable="'number'" filter="{'number': 'number'}">{{row.number}}</td>
         <td data-title="'Amount'" sortable="'amount'" filter="{'amount': 'number'}" ng-bind="row.amount"></td>
         <td data-title="'Currency'" sortable="'currency'" filter="{'currency': 'text'}" ng-bind="row.currency"></td>
         <td data-title="'Type'" sortable="'type'" filter="{'type': 'text'}" ng-bind="row.type"></td>

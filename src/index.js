@@ -11,11 +11,20 @@ angular
     }
   })
   .config(function(RestangularProvider, appConfig) {
-    RestangularProvider.setBaseUrl(appConfig.ENDPOINT);
+    RestangularProvider.setBaseUrl(appConfig.ENDPOINT+appConfig.ENDPOINT_PORT);
     RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
 
   })
   .service('todoService', TodoService);
+
+// angular.module('app').provider("EnvConfig", function() {
+//   var loadConfig = function($http) {
+//     $http.get('/tsconfig.json').success(function(data) {
+//       envConfig = data;
+//     });
+//     return envConfig;
+//   };
+// });
 
 Storage.prototype.setObject = function(key, value) {
   this.setItem(key, angular.toJson(value));
