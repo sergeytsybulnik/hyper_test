@@ -15,6 +15,7 @@ function TransactionController($scope, appConfig, $state, NgTableParams, $interv
   this.$window = $window;
   this.appConfig = appConfig;
   this.$interval = $interval;
+  this.$timeout = $timeout;
   this.$state = $state;
   this.ModalService = ModalService;
 
@@ -26,43 +27,50 @@ function TransactionController($scope, appConfig, $state, NgTableParams, $interv
     this.selectedItem = undefined;
   };
 
-  $scope.userAccountTransactions = this.calc(this.userAccountTransactions);
-
-  if($scope.userAccountTransactions.transactions !== null){
-    $scope.tableParams = new NgTableParams(
-      {
-        page: 1,
-        // total: 1,
-        count: 10
-      },
-      {
-        counts: [],
-        getData: function ($defer, params) {
-          var filteredData = params.filter() ?
-            $filter('filter')($scope.userAccountTransactions.transactions, params.filter()) :
-            $scope.userAccountTransactions.transactions;
-          var orderedDate = params.sorting() ?
-            $filter('orderBy')(filteredData, params.orderBy()) :
-            filteredData;
-          params.total(orderedDate.length);
-          $defer.resolve($scope.userAccountTransactions.transactions.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+  if(angular.isDefined(this.userAccountTransactions.result) && angular.isDefined(angular.fromJson(this.userAccountTransactions.result.message).transactions)
+    && angular.fromJson(this.userAccountTransactions.result.message).transactions.length > 0){
+    $scope.userAccountTransactions = this.calc(this.userAccountTransactions);
+    if (angular.isDefined($scope.userAccountTransactions.transactions) && $scope.userAccountTransactions.transactions.length > 0 && $scope.userAccountTransactions.transactions !== null) {
+      $scope.tableParams = new NgTableParams(
+        {
+          page: 1,
+          // total: 1,
+          count: 5,
+          sorting: {
+            status: "desc"
+          }
+        },
+        {
+          counts: [],
+          getData: function ($defer, params) {
+            var filteredData = params.filter() ?
+              $filter('filter')($scope.userAccountTransactions.transactions, params.filter()) :
+              $scope.userAccountTransactions.transactions;
+            var orderedDate = params.sorting() ?
+              $filter('orderBy')(filteredData, params.orderBy()) :
+              filteredData;
+            params.total(orderedDate.length);
+            $defer.resolve($scope.userAccountTransactions.transactions.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+          }
         }
-      }
-    );
+      );
+    }
+  }else {
+    _self.errorPresent = true;
+    _self.errorMessage = "Transactions were not found";
   }
 
-  var c = 0;
-  _self.$interval(function () {
+
+  var intervalPromise = $interval(function () {
     var token = _self.$window.localStorage.getObject(_self.appConfig.LOCALSTORAGE_USER).token;
-    $scope.userAccountTransactions.transactions[0].transfer.amount = parseInt($scope.userAccountTransactions.transactions[0].transfer.amount) - c +',00';
-    //TO DO
-    // _self.RestFactory.getTransactionsForAccount(_self.$state.params.accountID, token).then(function (response) {
-    //   if (angular.isDefined(response.plain())) {
-    //     $scope.userAccountTransactions = _self.calc(response.plain());
-    //   }
-    // });
-    c++;
-  }, 5000);
+    _self.RestFactory.getTransactionsForAccount(_self.$state.params.accountID, token).then(function (response) {
+      if (angular.isDefined(response.plain())) {
+        $scope.userAccountTransactions = _self.calc(response.plain());
+      }
+    });
+  }, 10000);
+
+  $scope.$on('$destroy', function () { $interval.cancel(intervalPromise); });
 };
 
 TransactionController.prototype = {
@@ -70,12 +78,12 @@ TransactionController.prototype = {
     var _self = this;
     var resp = data;
 
-    if (angular.isDefined(resp.status) && resp.status === "OK") {
+    if (angular.isDefined(resp.result.status) && resp.result.status === "OK") {
 
-      var message = angular.fromJson(resp.message);
+      var message = angular.fromJson(resp.result.message);
 
       if(angular.isDefined(message.transactions) && message.transactions.length > 0){
-        return message
+        return message;
       }
 
     }else if(angular.isDefined(resp.error)){
@@ -112,9 +120,9 @@ TransactionController.prototype = {
             close('', 100); // close, but give 500ms for bootstrap to animate
           };
           $scope.title = "Transaction details";
-          $scope.inputMessage = b64DecodeUnicode(_self.selectedItem.details.inputMessage);
-          $scope.outputMessage = b64DecodeUnicode(_self.selectedItem.details.outputMessage);
-          $scope.reason = b64DecodeUnicode(_self.selectedItem.transactionStatus.comment);
+          $scope.inputMessage = _self.selectedItem.details.inputMessage === null || _self.selectedItem.details.inputMessage === "" ? _self.selectedItem.details.inputMessage : b64DecodeUnicode(_self.selectedItem.details.inputMessage);
+          $scope.outputMessage = _self.selectedItem.details.outputMessage === null || _self.selectedItem.details.outputMessage === "" ? _self.selectedItem.details.outputMessage : b64DecodeUnicode(_self.selectedItem.details.outputMessage);
+          $scope.reason = _self.selectedItem.transactionStatus.comment === null || _self.selectedItem.transactionStatus.comment === "" ? _self.selectedItem.transactionStatus.comment : b64DecodeUnicode(_self.selectedItem.transactionStatus.comment);
         }
       }).then(function(modal) {
         modal.close.then(function(result) {

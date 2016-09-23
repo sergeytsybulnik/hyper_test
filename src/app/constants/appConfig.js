@@ -2,7 +2,7 @@
 
 angular.module('app')
   .constant('appConfig', {
-    ENDPOINT: "http://192.168.0.73",
+    ENDPOINT: "http://192.168.0.18",
     ENDPOINT_PORT: ":7050/",
     CHAINCODE: "chaincode",
     CHAINCODEID_LOGIN: "UserManagement",

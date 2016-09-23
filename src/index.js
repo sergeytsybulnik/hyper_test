@@ -17,15 +17,6 @@ angular
   })
   .service('todoService', TodoService);
 
-// angular.module('app').provider("EnvConfig", function() {
-//   var loadConfig = function($http) {
-//     $http.get('/tsconfig.json').success(function(data) {
-//       envConfig = data;
-//     });
-//     return envConfig;
-//   };
-// });
-
 Storage.prototype.setObject = function(key, value) {
   this.setItem(key, angular.toJson(value));
 }
@@ -33,27 +24,5 @@ Storage.prototype.setObject = function(key, value) {
 Storage.prototype.getObject = function(key) {
   return angular.fromJson(this.getItem(key));
 };
-
-// function domReady () {
-//   document.body.className += "bg";
-//   // ...
-// }
-//
-// if ( document.addEventListener ) {
-//   document.addEventListener( "DOMContentLoaded", function(){
-//     document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
-//     domReady();
-//   }, false );
-//
-// // If IE event model is used
-// }else if ( document.attachEvent ) {
-//   // ensure firing before onload
-//   document.attachEvent("onreadystatechange", function(){
-//     if ( document.readyState === "complete" ) {
-//       document.detachEvent( "onreadystatechange", arguments.callee );
-//       domReady();
-//     }
-//   });
-// }
 
 

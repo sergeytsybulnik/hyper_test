@@ -6,7 +6,7 @@
         <h4 class="modal-title">{{title}}</h4>
       </div>
       <div class="modal-body">
-          <textarea style="min-height: 200px" ng-model="message"></textarea>
+          <textarea style="min-height: 200px" ng-model="message" placeholder="Please, type message"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" ng-click="close('yes')" class="header__user_btn header__user_btn_warning" ng-disabled="message === undefined">Submit</button>

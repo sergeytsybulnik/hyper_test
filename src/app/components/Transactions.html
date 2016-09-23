@@ -10,14 +10,14 @@
       {{$ctrl.errorMessage}}
     </div>
     <div class="panel-footer">
-      <div class="header__user_btn header__user_btn_warning">
+      <div class="header__user_btn header__user_btn_warning" ui-sref="accounts">
         Refresh
       </div>
     </div>
   </div>
 
   <div class="accounts__container" ng-show="!$ctrl.errorPresent">
-    <div class="accounts__container" style="width:225px;position: absolute;top:-85px; left:0%">
+    <div class="accounts__container accounts__container_breadcrumb">
       <ol class="breadcrumb">
         <li><a ui-sref="accounts">Accounts</a></li>
         <li class="active">Transactions</li>
@@ -32,12 +32,11 @@
       </div>
     </div>
 
-    <table ng-table="tableParams" show-filter="true"
-           class="table table-condensed table-bordered">
+    <table ng-table="tableParams" class="table table-condensed table-bordered">
       <thead>
       <tr>
         <th rowspan="3">ID</th>
-        <th colspan="7">Transfer</th>
+        <th colspan="6">Transfer</th>
         <th rowspan="3">Time</th>
         <th rowspan="3">Status</th>
         <th colspan="3">Account State</th>
@@ -47,7 +46,6 @@
         <th colspan="2">Receiver</th>
         <th rowspan="2">Amount</th>
         <th rowspan="2">Currency</th>
-        <th rowspan="2">Type</th>
         <th rowspan="2">Amount</th>
         <th rowspan="2">Currency</th>
       </tr>
@@ -67,8 +65,7 @@
           <td sortable="'transfer.receiver.account'" filter="{'transfer.receiver.account': 'text'}" ng-bind="row.transfer.receiver.account"></td>
           <td sortable="'transfer.amount'" filter="{'transfer.amount': 'text'}" ng-bind="row.transfer.amount"></td>
           <td sortable="'transfer.currency'" filter="{'transfer.currency': 'text'}" ng-bind="row.transfer.currency"></td>
-          <td sortable="'transfer.type'" filter="{'transfer.type': 'text'}" ng-bind="row.transfer.type"></td>
-          <td sortable="'time'" filter="{'time': 'text'}" ng-bind="row.time"></td>
+          <td>{{row.time}}</td>
           <td sortable="'transactionStatus.status'" filter="{'transactionStatus.status': 'text'}" ng-bind="row.transactionStatus.status"></td>
           <td sortable="'accountState.amount'" filter="{'accountState.amount': 'number'}" ng-bind="row.accountState.amount"></td>
           <td sortable="'accountState.currency'" filter="{'accountState.currency': 'text'}" ng-bind="row.accountState.currency"></td>

@@ -53,31 +53,17 @@ function AccountController($scope, appConfig, NgTableParams, $interval, RestFact
     );
   }
 
-  var c = 0;
-  _self.$interval(function () {
-    $scope.userAccounts[0].number = $scope.userAccounts[0].number - c;
-    $scope.userAccounts[0].amount = $scope.userAccounts[0].amount - c;
+  var intervalPromise = $interval(function () {
+    _self.RestFactory.getAccounts().then(function (response) {
+      if (angular.isDefined(response.plain())) {
+        $scope.userAccounts = _self.calc(response.plain());
+        $scope.tableParams.total($scope.userAccounts.length);
+        $scope.tableParams.reload();
+      }
+    });
+  }, 10000);
 
-    $scope.tableParams.total($scope.userAccounts.length);
-    $scope.tableParams.reload();
-
-    //TO DO: check/fix response
-
-    // _self.getAccounts().then(function (response) {
-    //   if (angular.isDefined(response.plain())) {
-    //     $scope.userAccounts = _self.calc(response.plain());
-    //   }
-    // });
-
-    c++;
-    // $scope.$watch('userAccounts', function(newValue, oldValue){
-    //   if(angular.isDefined(newValue) && newValue !== oldValue){
-    //     $scope.tableParams.total($scope.userAccounts.length);
-    //     $scope.tableParams.reload();
-    //   }
-    // });
-  }, 5000);
-
+  $scope.$on('$destroy', function () { $interval.cancel(intervalPromise); });
 };
 
 AccountController.prototype = {
@@ -86,7 +72,7 @@ AccountController.prototype = {
     var _self = this;
     var resp = data;
 
-    if(angular.isDefined(resp.result)){
+    if(angular.isDefined(resp)){
       var message = angular.fromJson(resp.result.message);
 
       if (angular.isDefined(resp.result.status) && resp.result.status === "OK") {
@@ -118,12 +104,10 @@ AccountController.prototype = {
 
   getAccounts: function(){
     var _self = this;
-    var data = this.RestFactory.getAccounts();
-    _self.calc(data)
     //TO DO
-    // return this.RestFactory.getAccounts().then(function(response){
-    //   _self.calc();
-    // })
+    return this.RestFactory.getAccounts().then(function(response){
+      _self.calc(response.plain());
+    })
   },
 
   // getTransactionsForAccount: function(){
@@ -202,35 +186,35 @@ AccountController.prototype = {
       modal.close.then(function(result) {
         if(result.message !== 'no') {
           var user = _self.$window.localStorage.getObject(_self.appConfig.LOCALSTORAGE_USER);
-          // _self.RestFactory.checkPermissions(user.token, result.message).then(function(response){
-          //   if(angular.isDefined(response.plain())){
-          //     var resp = response.plain();
+          _self.RestFactory.checkPermissions(user.token, result.message).then(function(response){
+            if(angular.isDefined(response.plain())){
 
-              var resp = _self.RestFactory.checkPermissions(user.token, result.message);
-
+              var resp = response.plain();
               var message = angular.fromJson(resp.result.message);
+
               if(resp.result.status === "OK" && message.status === "OK"){
-                console.info('TRANSFER SUCCESSFULL: ', _self.RestFactory.transfer(user.token, result.message));
-                // _self.RestFactory.transfer(user.token, result.message).then(function(response){
-                //   //TO DO
-                //   console.log(response);
-                // })
+                _self.RestFactory.transfer(user.token, result.message).then(function(response){
+                  //TO DO
+                  console.log(response);
+                  _self.$state.go("accounts");
+                })
               }else{
                 _self.errorPresent = true;
                 _self.errorMessage = message.message;
                 return null;
               }
-            // }else if(angular.isDefined(resp.error)){
-            //     var error = angular.fromJson(resp.error);
-            //     if(error.code === -32003 && error.message === _self.appConfig.QUERY_FAILURE){
-            //       _self.errorPresent = true;
-            //       _self.errorMessage = _self.appConfig.GENERIC_ERROR;
-            //     }
-            //     return null;
-            //   }
-          // });
+            }else if(angular.isDefined(resp.error)){
+                var error = angular.fromJson(resp.error);
+                if(error.code === -32003 && error.message === _self.appConfig.QUERY_FAILURE){
+                  _self.errorPresent = true;
+                  _self.errorMessage = _self.appConfig.GENERIC_ERROR;
+                }
+                return null;
+              }
+          });
         }
       });
     });
   }
 };
+
