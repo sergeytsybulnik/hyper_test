@@ -1,13 +1,12 @@
 <header class="header__demo">
   <div class="header__caption">
-    <a ui-sref="accounts" class="header__logo">
-      <img class="header__logo_img" src="/app/images/ieu_nocolor.png">
-    </a>
+    <div class="header__logo">
+      <img class="header__logo_img" src="/app/images/logo_hl.png">
+    </div>
     <div class="header__title">
       <h1 class="header__title_text">Smart Correspondent Banking demo</h1>
     </div>
   </div>
-  <div class="header__user" ng-show="!$ctrl.userIsPresent"> </div>
   <div class="header__user" ng-show="$ctrl.userIsPresent">
     <div class="header__user_item">
       <div class="header__user_value header__user_value_no">BIC:</div> <div class="header__user_value header__user_value_yes">{{$ctrl.user.bic}}</div>
@@ -19,5 +18,9 @@
     <div class="header__user_item">
       <button class="header__user_btn" ng-click="$ctrl.Logout()">Logout</button>
     </div>
+    <a ui-sref="accounts" class="header__logo" style="margin-left:15px">
+      <img class="header__logo_img" src="/app/images/ieu_nocolor.png">
+    </a>
   </div>
+
 </header>
