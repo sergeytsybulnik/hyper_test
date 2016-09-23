@@ -6,7 +6,4 @@ angular
   });
 
 function App($scope) {
-  this.todos = [initialTodo];
-  this.filter = SHOW_ALL;
-  $scope.bodyClass = true;
 };
